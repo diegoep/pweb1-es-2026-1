@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Especificidade CSS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+
+        h1 {
+            color: #186fad;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+        }
+
+        /* Especificidade: 0,0,0,1 */
+        p {
+            color: gray;
+        }
+
+        /* Especificidade: 0,0,1,0 */
+        .texto {
+            color: blue;
+        }
+
+        /* Especificidade: 0,1,0,0 */
+        #especial {
+            color: green;
+        }
+
+        /* Especificidade: 0,0,1,1 */
+        p.texto {
+            color: orange;
+        }
+
+        /* Especificidade: 0,1,1,0 */
+        #especial.texto {
+            color: purple;
+        }
+
+        .exemplo-visual {
+            background-color: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .especificidade-tabela {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .especificidade-tabela th,
+        .especificidade-tabela td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .especificidade-tabela th {
+            background-color: #186fad;
+            color: white;
+        }
+
+        .especificidade-tabela tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #e83e8c;
+            font-family: monospace;
+        }
+
+        .nota {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .exemplo-box {
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Especificidade CSS</h1>
+
+        <p>A especificidade determina qual regra CSS será aplicada quando múltiplas regras selecionam o mesmo elemento.</p>
+
+        <h2>Cálculo da Especificidade</h2>
+        <table class="especificidade-tabela">
+            <thead>
+                <tr>
+                    <th>Seletor</th>
+                    <th>Inline</th>
+                    <th>IDs</th>
+                    <th>Classes</th>
+                    <th>Elementos</th>
+                    <th>Especificidade</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>p</code></td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>0,0,0,1</td>
+                </tr>
+                <tr>
+                    <td><code>.texto</code></td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>0,0,1,0</td>
+                </tr>
+                <tr>
+                    <td><code>#especial</code></td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0,1,0,0</td>
+                </tr>
+                <tr>
+                    <td><code>p.texto</code></td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>0,0,1,1</td>
+                </tr>
+                <tr>
+                    <td><code>#especial.texto</code></td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>0,1,1,0</td>
+                </tr>
+                <tr>
+                    <td><code style="color: inherit;">style="..."</code></td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>1,0,0,0</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Exemplos Visuais</h2>
+
+        <div class="exemplo-box">
+            <p>Este parágrafo é cinza (especificidade: 0,0,0,1)</p>
+        </div>
+
+        <div class="exemplo-box">
+            <p class="texto">Este parágrafo é laranja porque p.texto (0,0,1,1) vence .texto (0,0,1,0)</p>
+        </div>
+
+        <div class="exemplo-box">
+            <p id="especial">Este parágrafo é verde porque #especial (0,1,0,0) vence p (0,0,0,1)</p>
+        </div>
+
+        <div class="exemplo-box">
+            <p id="especial" class="texto">Este é roxo porque #especial.texto (0,1,1,0) tem maior especificidade</p>
+        </div>
+
+        <div class="nota">
+            <strong>Regra de Ouro:</strong> Quanto maior a especificidade, maior a prioridade!<br>
+            Inline (1,0,0,0) > ID (0,1,0,0) > Classe (0,0,1,0) > Elemento (0,0,0,1)
+        </div>
+    </div>
+</body>
+</html>

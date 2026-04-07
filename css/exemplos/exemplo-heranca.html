@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herança CSS</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #2c3e50;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #ecf0f1;
+        }
+
+        h1 {
+            color: #186fad;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+        }
+
+        .pai {
+            background-color: #3498db;
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            font-size: 18px;
+        }
+
+        .filho {
+            background-color: #2980b9;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+            /* Herda: color, font-size, font-family do pai */
+        }
+
+        .neto {
+            background-color: #1c598a;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            /* Herda propriedades do filho e do pai */
+        }
+
+        .exemplo-nao-herda {
+            background-color: #e74c3c;
+            color: white;
+            padding: 20px;
+            border: 5px solid #c0392b;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .exemplo-nao-herda div {
+            background-color: #95a5a6;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 5px;
+            /* NÃO herda: background-color, border, padding, margin */
+        }
+
+        .tabela-heranca {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .tabela-heranca th,
+        .tabela-heranca td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .tabela-heranca th {
+            background-color: #186fad;
+            color: white;
+        }
+
+        .tabela-heranca tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .sim {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .nao {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .nota {
+            background-color: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 20px 0;
+            color: #155724;
+        }
+
+        code {
+            background-color: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #e83e8c;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Herança CSS</h1>
+
+        <p>Herança é o mecanismo pelo qual elementos filhos herdam propriedades CSS de seus elementos pais.</p>
+
+        <h2>Propriedades que são Herdadas vs Não Herdadas</h2>
+        <table class="tabela-heranca">
+            <thead>
+                <tr>
+                    <th>Propriedade</th>
+                    <th>Herda?</th>
+                    <th>Categoria</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>color</code></td>
+                    <td class="sim">✓ Sim</td>
+                    <td>Texto</td>
+                </tr>
+                <tr>
+                    <td><code>font-family</code></td>
+                    <td class="sim">✓ Sim</td>
+                    <td>Texto</td>
+                </tr>
+                <tr>
+                    <td><code>font-size</code></td>
+                    <td class="sim">✓ Sim</td>
+                    <td>Texto</td>
+                </tr>
+                <tr>
+                    <td><code>line-height</code></td>
+                    <td class="sim">✓ Sim</td>
+                    <td>Texto</td>
+                </tr>
+                <tr>
+                    <td><code>text-align</code></td>
+                    <td class="sim">✓ Sim</td>
+                    <td>Texto</td>
+                </tr>
+                <tr>
+                    <td><code>background-color</code></td>
+                    <td class="nao">✗ Não</td>
+                    <td>Visual</td>
+                </tr>
+                <tr>
+                    <td><code>border</code></td>
+                    <td class="nao">✗ Não</td>
+                    <td>Box Model</td>
+                </tr>
+                <tr>
+                    <td><code>padding</code></td>
+                    <td class="nao">✗ Não</td>
+                    <td>Box Model</td>
+                </tr>
+                <tr>
+                    <td><code>margin</code></td>
+                    <td class="nao">✗ Não</td>
+                    <td>Box Model</td>
+                </tr>
+                <tr>
+                    <td><code>width / height</code></td>
+                    <td class="nao">✗ Não</td>
+                    <td>Dimensões</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Exemplo 1: Herança em Ação</h2>
+        <div class="pai">
+            Elemento PAI (color: white, font-size: 18px)
+            <div class="filho">
+                Elemento FILHO (herda color e font-size do pai)
+                <div class="neto">
+                    Elemento NETO (herda color e font-size do pai e filho)
+                </div>
+            </div>
+        </div>
+
+        <h2>Exemplo 2: Propriedades NÃO Herdadas</h2>
+        <div class="exemplo-nao-herda">
+            Elemento PAI (background-color: #e74c3c, border: 5px solid)
+            <div>
+                Elemento FILHO (NÃO herda background-color nem border do pai)
+            </div>
+        </div>
+
+        <div class="nota">
+            <strong>💡 Regra Geral:</strong> Propriedades relacionadas a <strong>texto</strong> geralmente
+            são herdadas. Propriedades relacionadas ao <strong>box model</strong> (layout) geralmente
+            NÃO são herdadas.
+        </div>
+    </div>
+</body>
+</html>

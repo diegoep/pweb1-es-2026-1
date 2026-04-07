@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cascata CSS</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background-color: #f5f5f5;
+      }
+
+      h1 {
+        color: #186fad;
+        text-align: center;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 8px;
+      }
+
+      /* Primeira declaração */
+      .caixa {
+        background-color: lightblue;
+        padding: 20px;
+        margin: 15px 0;
+        border-radius: 5px;
+      }
+
+      /* Segunda declaração - sobrescreve a primeira */
+      .caixa {
+        background-color: lightcoral;
+        color: white;
+      }
+
+      /* Ordem importa: última regra vence */
+      p {
+        color: blue;
+      }
+
+      p {
+        color: green;
+      }
+
+      p {
+        color: red; /* Esta vence! */
+      }
+
+      .exemplo {
+        background-color: #f8f9fa;
+        border: 2px solid #dee2e6;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 5px;
+      }
+
+      .importante {
+        color: purple !important; /* !important tem prioridade máxima */
+      }
+
+      .nota-importante {
+        background-color: #f8d7da;
+        border-left: 4px solid #dc3545;
+        padding: 15px;
+        margin: 20px 0;
+        color: #721c24;
+      }
+
+      .nota-info {
+        background-color: #d1ecf1;
+        border-left: 4px solid #0c5460;
+        padding: 15px;
+        margin: 20px 0;
+        color: #0c5460;
+      }
+
+      code {
+        background-color: #f4f4f4;
+        padding: 2px 6px;
+        border-radius: 3px;
+        color: #e83e8c;
+        font-family: monospace;
+      }
+
+      .lista-ordem {
+        background-color: #e7f300;
+        padding: 20px;
+        border-radius: 5px;
+        margin: 20px 0;
+      }
+
+      .lista-ordem h3 {
+        color: #186fad;
+        margin-top: 0;
+      }
+
+      .lista-ordem ol {
+        line-height: 2;
+      }
+
+      .lista-ordem li {
+        margin: 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Cascata CSS</h1>
+
+      <p>
+        A "Cascata" determina como o navegador decide qual regra aplicar quando
+        há conflitos.
+      </p>
+
+      <div class="lista-ordem">
+        <h3>Ordem de Prioridade (da maior para menor)</h3>
+        <ol>
+          <li><strong>Estilos do Usuário com !important</strong></li>
+          <li><strong>Estilos do Autor com !important</strong></li>
+          <li><strong>Estilos do Autor (CSS normal)</strong></li>
+          <li><strong>Estilos do Usuário (CSS normal)</strong></li>
+          <li><strong>Estilos Padrão do Navegador</strong></li>
+        </ol>
+      </div>
+
+      <h2>Exemplo 1: Ordem das Regras</h2>
+      <div class="exemplo">
+        <code>
+          p { color: blue; }<br />
+          p { color: green; }<br />
+          p { color: red; }
+        </code>
+        <p>
+          Quando a especificidade é igual, a ÚLTIMA regra vence! Por isso este
+          texto é vermelho.
+        </p>
+      </div>
+
+      <h2>Exemplo 2: !important</h2>
+      <div class="exemplo">
+        <p class="importante" style="color: orange">
+          Este texto deveria ser laranja (inline), mas <code>!important</code> o
+          torna roxo!
+        </p>
+      </div>
+
+      <div class="nota-importante">
+        <strong>⚠️ Evite !important:</strong> Use apenas em casos especiais. Ele
+        quebra a cascata natural e dificulta a manutenção do código.
+      </div>
+
+      <h2>Exemplo 3: Múltiplas Declarações</h2>
+      <div class="exemplo">
+        <div class="caixa">
+          Esta caixa foi definida duas vezes no CSS. A segunda declaração
+          sobrescreve a primeira (de lightblue para lightcoral).
+        </div>
+      </div>
+
+      <div class="nota-info">
+        <strong>💡 Dica:</strong> A cascata permite que você defina estilos
+        gerais primeiro e depois faça ajustes específicos. É por isso que
+        chamamos de "Cascading Style Sheets"!
+      </div>
+    </div>
+  </body>
+</html>
