@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsividade e Formatação CSS — Aula 05</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <style>
+      /* ====================================================
+         RESET E BASE — Mobile First
+         ==================================================== */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Inter", sans-serif;
+        font-size: 1rem;
+        line-height: 1.6;
+        color: #333;
+        background-color: #f5f7fa;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Playfair Display", serif;
+        color: #186fad;
+        margin-top: 0;
+      }
+
+      /* ====================================================
+         LAYOUT — container centralizado e fluido
+         ==================================================== */
+      .container {
+        width: 100%;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      /* ====================================================
+         CABEÇALHO DA PÁGINA
+         ==================================================== */
+      .page-header {
+        background: linear-gradient(135deg, #186fad, #22acd5);
+        color: #fff;
+        padding: 2rem 1rem;
+        text-align: center;
+      }
+
+      .page-header h1 {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(1.6rem, 5vw, 2.8rem); /* tipografia fluida */
+        color: #fff;
+        margin-bottom: 0.5rem;
+      }
+
+      .page-header p {
+        margin: 0;
+        font-size: clamp(0.9rem, 2vw, 1.1rem);
+        opacity: 0.9;
+      }
+
+      /* ====================================================
+         SEÇÕES DE EXEMPLO
+         ==================================================== */
+      .secao {
+        background: #fff;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+
+      .secao h2 {
+        font-size: 1.3rem;
+        border-bottom: 2px solid #22acd5;
+        padding-bottom: 0.4rem;
+        margin-bottom: 1rem;
+      }
+
+      .secao-descricao {
+        color: #666;
+        font-size: 0.9rem;
+        margin-bottom: 1.2rem;
+      }
+
+      /* ====================================================
+         1. INDICADOR DE BREAKPOINT
+         ==================================================== */
+      .breakpoint-badge {
+        display: inline-block;
+        background-color: #186fad;
+        color: #fff;
+        padding: 0.6rem 1.2rem;
+        border-radius: 4px;
+        font-weight: 600;
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+      }
+
+      /* mobile first: conteúdo padrão para mobile */
+      .breakpoint-badge::before {
+        content: "📱 Mobile (< 768px)";
+      }
+
+      @media (min-width: 768px) {
+        .breakpoint-badge::before {
+          content: "📟 Tablet (768px – 1023px)";
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .breakpoint-badge::before {
+          content: "🖥️ Desktop (≥ 1024px)";
+        }
+      }
+
+      /* ====================================================
+         2. GRID RESPONSIVO (Mobile First)
+         ==================================================== */
+      .card-grid {
+        display: grid;
+        grid-template-columns: 1fr; /* mobile: 1 coluna */
+        gap: 1rem;
+      }
+
+      @media (min-width: 600px) {
+        .card-grid {
+          grid-template-columns: repeat(2, 1fr); /* pequeno tablet: 2 colunas */
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .card-grid {
+          grid-template-columns: repeat(3, 1fr); /* desktop: 3 colunas */
+        }
+      }
+
+      .card {
+        background: #fff;
+        border: 1px solid #dce8f5;
+        border-radius: 8px;
+        padding: 1.2rem;
+        text-align: center;
+        transition: box-shadow 0.2s, transform 0.2s;
+      }
+
+      /* Pseudo-classe: estado de hover */
+      .card:hover {
+        box-shadow: 0 6px 20px rgba(24, 111, 173, 0.18);
+        transform: translateY(-3px);
+      }
+
+      .card-icone {
+        width: 100%;
+        height: 120px;
+        background: linear-gradient(135deg, #186fad, #22acd5);
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .card h3 {
+        font-size: 1.05rem;
+        margin-bottom: 0.4rem;
+        color: #186fad;
+      }
+
+      .card p {
+        font-size: 0.88rem;
+        color: #666;
+        margin: 0;
+      }
+
+      /* ====================================================
+         3. TIPOGRAFIA FLUIDA COM clamp()
+         ==================================================== */
+      .titulo-fluido {
+        font-size: clamp(1.2rem, 4vw, 2.4rem);
+        color: #186fad;
+        font-family: "Playfair Display", serif;
+        margin: 0.5rem 0;
+      }
+
+      .subtitulo-fluido {
+        font-size: clamp(0.85rem, 2vw, 1.1rem);
+        color: #555;
+        margin: 0;
+      }
+
+      .codigo-exemplo {
+        display: inline-block;
+        background: #f0f4f8;
+        color: #186fad;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-family: "Courier New", monospace;
+        font-size: 0.85em;
+      }
+
+      /* ====================================================
+         4. PSEUDO-CLASSES E PSEUDO-ELEMENTOS
+         ==================================================== */
+      .lista-pseudo {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .lista-pseudo li {
+        padding: 0.7rem 1rem;
+        border-bottom: 1px solid #eee;
+        transition: background-color 0.15s;
+        position: relative;
+        padding-left: 1.8rem;
+      }
+
+      /* Pseudo-elemento ::before para marcador personalizado */
+      .lista-pseudo li::before {
+        content: "→";
+        position: absolute;
+        left: 0.4rem;
+        color: #22acd5;
+        font-weight: 700;
+      }
+
+      /* Pseudo-classe :hover */
+      .lista-pseudo li:hover {
+        background-color: #eef6fc;
+        cursor: default;
+      }
+
+      /* Pseudo-classe :first-child */
+      .lista-pseudo li:first-child {
+        border-radius: 4px 4px 0 0;
+        font-weight: 600;
+        color: #186fad;
+      }
+
+      /* Pseudo-classe :last-child */
+      .lista-pseudo li:last-child {
+        border-bottom: none;
+        border-radius: 0 0 4px 4px;
+      }
+
+      /* Pseudo-classe :nth-child(even) */
+      .lista-pseudo li:nth-child(even) {
+        background-color: #f8fbfd;
+      }
+
+      /* ====================================================
+         5. TABELA ESTILIZADA
+         ==================================================== */
+      .tabela-wrapper {
+        overflow-x: auto; /* scroll horizontal em mobile */
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+        min-width: 480px; /* evita quebra em telas estreitas */
+      }
+
+      thead th {
+        background-color: #186fad;
+        color: #fff;
+        padding: 0.75rem 1rem;
+        text-align: left;
+        font-weight: 600;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      tbody td {
+        padding: 0.65rem 1rem;
+        border-bottom: 1px solid #e4edf5;
+        color: #444;
+      }
+
+      /* Zebra: pseudo-classe :nth-child(even) */
+      tbody tr:nth-child(even) {
+        background-color: #f2f8fd;
+      }
+
+      /* Hover na linha */
+      tbody tr:hover {
+        background-color: #dceef9;
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 0.2rem 0.6rem;
+        border-radius: 12px;
+        font-size: 0.78rem;
+        font-weight: 600;
+      }
+
+      .badge-verde {
+        background-color: #d4edda;
+        color: #155724;
+      }
+
+      .badge-amarelo {
+        background-color: #fff3cd;
+        color: #856404;
+      }
+
+      .badge-cinza {
+        background-color: #e2e8f0;
+        color: #475569;
+      }
+
+      /* ====================================================
+         6. FORMULÁRIO COM VALIDAÇÃO
+         ==================================================== */
+      .form-grupo {
+        margin-bottom: 1.2rem;
+      }
+
+      label {
+        display: block;
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 0.35rem;
+        color: #374151;
+      }
+
+      /* Asterisco em campos obrigatórios via pseudo-elemento */
+      label.obrigatorio::after {
+        content: " *";
+        color: #e53e3e;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      select,
+      textarea {
+        width: 100%;
+        padding: 0.6rem 0.8rem;
+        border: 1.5px solid #d1d5db;
+        border-radius: 6px;
+        font-family: "Inter", sans-serif;
+        font-size: 0.95rem;
+        color: #111;
+        background-color: #fff;
+        transition: border-color 0.2s, box-shadow 0.2s;
+      }
+
+      /* Pseudo-classe :focus */
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #186fad;
+        box-shadow: 0 0 0 3px rgba(24, 111, 173, 0.15);
+      }
+
+      /* Pseudo-classe :invalid (após interação) */
+      input:not(:placeholder-shown):invalid {
+        border-color: #e53e3e;
+        background-color: #fff5f5;
+      }
+
+      /* Pseudo-classe :valid (após interação) */
+      input:not(:placeholder-shown):valid {
+        border-color: #38a169;
+        background-color: #f0fff4;
+      }
+
+      /* Pseudo-classe :disabled */
+      input:disabled {
+        background-color: #f3f4f6;
+        color: #9ca3af;
+        cursor: not-allowed;
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+
+      .form-linha {
+        display: grid;
+        grid-template-columns: 1fr; /* mobile: 1 coluna */
+        gap: 1rem;
+      }
+
+      @media (min-width: 600px) {
+        .form-linha {
+          grid-template-columns: 1fr 1fr; /* tablet+: 2 colunas */
+        }
+      }
+
+      .btn-enviar {
+        background-color: #186fad;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        padding: 0.75rem 2rem;
+        font-family: "Inter", sans-serif;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s, transform 0.1s;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .btn-enviar:hover {
+        background-color: #145d94;
+      }
+
+      .btn-enviar:active {
+        transform: scale(0.98);
+      }
+
+      /* ====================================================
+         7. UNIDADES RELATIVAS
+         ==================================================== */
+      .barra-demo {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+      }
+
+      .barra {
+        background-color: #22acd5;
+        color: #fff;
+        padding: 0.45rem 0.8rem;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      .barra-25 { width: 25%; }
+      .barra-50 { width: 50%; }
+      .barra-75 { width: 75%; }
+      .barra-100 { width: 100%; }
+
+      /* ====================================================
+         RODAPÉ
+         ==================================================== */
+      .page-footer {
+        background-color: #1a1a2e;
+        color: #aaa;
+        text-align: center;
+        padding: 1.5rem 1rem;
+        font-size: 0.85rem;
+        margin-top: 2rem;
+      }
+
+      .page-footer a {
+        color: #22acd5;
+        text-decoration: none;
+      }
+
+      .page-footer a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- CABEÇALHO -->
+    <header class="page-header">
+      <h1><i class="fas fa-mobile-screen-button"></i> Responsividade e Formatação CSS</h1>
+      <p>Aula 05 — Redimensione a janela para ver os exemplos em ação</p>
+    </header>
+
+    <div class="container">
+
+      <!-- 1. BREAKPOINT INDICATOR -->
+      <div class="secao">
+        <h2><i class="fas fa-ruler-horizontal"></i> Breakpoint Ativo</h2>
+        <p class="secao-descricao">
+          Redimensione a janela e veja qual breakpoint está ativo. O texto é
+          gerado por <code class="codigo-exemplo">::before</code> com media queries.
+        </p>
+        <div class="breakpoint-badge"></div>
+        <p style="font-size: 0.85rem; color: #666; margin-top: 0.5rem;">
+          Breakpoints usados: <code class="codigo-exemplo">768px</code> (tablet) e
+          <code class="codigo-exemplo">1024px</code> (desktop)
+        </p>
+      </div>
+
+      <!-- 2. GRID RESPONSIVO -->
+      <div class="secao">
+        <h2><i class="fas fa-grid-2"></i> Grid Responsivo — Mobile First</h2>
+        <p class="secao-descricao">
+          1 coluna no mobile → 2 no tablet (≥ 600px) → 3 no desktop (≥ 1024px).
+          Passe o mouse sobre os cards para ver o efeito de <code class="codigo-exemplo">:hover</code>.
+        </p>
+        <div class="card-grid">
+          <div class="card">
+            <div class="card-icone"><i class="fas fa-code"></i></div>
+            <h3>HTML &amp; CSS</h3>
+            <p>Estrutura e apresentação de páginas web.</p>
+          </div>
+          <div class="card">
+            <div class="card-icone"><i class="fab fa-js"></i></div>
+            <h3>JavaScript</h3>
+            <p>Interatividade e lógica no navegador.</p>
+          </div>
+          <div class="card">
+            <div class="card-icone"><i class="fas fa-database"></i></div>
+            <h3>Banco de Dados</h3>
+            <p>Armazenamento e consulta de dados.</p>
+          </div>
+          <div class="card">
+            <div class="card-icone"><i class="fab fa-python"></i></div>
+            <h3>Python</h3>
+            <p>Linguagem versátil para back-end e scripts.</p>
+          </div>
+          <div class="card">
+            <div class="card-icone"><i class="fab fa-git-alt"></i></div>
+            <h3>Git</h3>
+            <p>Controle de versão distribuído.</p>
+          </div>
+          <div class="card">
+            <div class="card-icone"><i class="fas fa-cloud"></i></div>
+            <h3>Deploy</h3>
+            <p>Publicação de aplicações na nuvem.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. TIPOGRAFIA FLUIDA -->
+      <div class="secao">
+        <h2><i class="fas fa-text-height"></i> Tipografia Fluida com <code class="codigo-exemplo">clamp()</code></h2>
+        <p class="secao-descricao">
+          O título abaixo cresce e encolhe automaticamente com a largura da
+          viewport, sem nenhuma media query.
+        </p>
+        <p class="titulo-fluido">Programação Web I — IFPB 2026.1</p>
+        <p class="subtitulo-fluido">Este subtítulo também se adapta com <code class="codigo-exemplo">clamp(0.85rem, 2vw, 1.1rem)</code></p>
+      </div>
+
+      <!-- 4. PSEUDO-CLASSES E PSEUDO-ELEMENTOS -->
+      <div class="secao">
+        <h2><i class="fas fa-wand-magic-sparkles"></i> Pseudo-classes e Pseudo-elementos</h2>
+        <p class="secao-descricao">
+          <code class="codigo-exemplo">::before</code> com marcador personalizado,
+          <code class="codigo-exemplo">:hover</code>, <code class="codigo-exemplo">:first-child</code>,
+          <code class="codigo-exemplo">:last-child</code> e <code class="codigo-exemplo">:nth-child(even)</code>.
+        </p>
+        <ul class="lista-pseudo">
+          <li>:first-child — primeiro item (azul e negrito)</li>
+          <li>:nth-child(even) — fundo levemente colorido</li>
+          <li>:hover — fundo muda ao passar o mouse</li>
+          <li>::before — seta "→" adicionada com CSS puro</li>
+          <li>:last-child — último item (sem borda inferior)</li>
+        </ul>
+      </div>
+
+      <!-- 5. TABELA ESTILIZADA -->
+      <div class="secao">
+        <h2><i class="fas fa-table"></i> Tabela Estilizada</h2>
+        <p class="secao-descricao">
+          Header colorido, linhas zebradas com <code class="codigo-exemplo">:nth-child(even)</code>
+          e highlight ao passar o mouse com <code class="codigo-exemplo">:hover</code>.
+          Wrapper com <code class="codigo-exemplo">overflow-x: auto</code> para scroll em mobile.
+        </p>
+        <div class="tabela-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Disciplina</th>
+                <th>Carga Horária</th>
+                <th>Período</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Programação Web I</td>
+                <td>80h</td>
+                <td>3º</td>
+                <td><span class="badge badge-verde">Em andamento</span></td>
+              </tr>
+              <tr>
+                <td>Banco de Dados I</td>
+                <td>80h</td>
+                <td>3º</td>
+                <td><span class="badge badge-verde">Em andamento</span></td>
+              </tr>
+              <tr>
+                <td>Estrutura de Dados</td>
+                <td>80h</td>
+                <td>3º</td>
+                <td><span class="badge badge-amarelo">Pendente</span></td>
+              </tr>
+              <tr>
+                <td>Engenharia de Software</td>
+                <td>80h</td>
+                <td>4º</td>
+                <td><span class="badge badge-cinza">Futura</span></td>
+              </tr>
+              <tr>
+                <td>Programação Web II</td>
+                <td>80h</td>
+                <td>4º</td>
+                <td><span class="badge badge-cinza">Futura</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 6. FORMULÁRIO COM VALIDAÇÃO -->
+      <div class="secao">
+        <h2><i class="fas fa-clipboard-list"></i> Formulário com Validação CSS</h2>
+        <p class="secao-descricao">
+          <code class="codigo-exemplo">:focus</code> com anel azul,
+          <code class="codigo-exemplo">:invalid</code> com borda vermelha,
+          <code class="codigo-exemplo">:valid</code> com borda verde.
+          Preencha os campos para ver os estados de validação.
+        </p>
+        <form novalidate>
+          <div class="form-linha">
+            <div class="form-grupo">
+              <label for="nome" class="obrigatorio">Nome completo</label>
+              <input type="text" id="nome" placeholder="Ex: João Silva" required minlength="3" />
+            </div>
+            <div class="form-grupo">
+              <label for="email" class="obrigatorio">E-mail</label>
+              <input type="email" id="email" placeholder="Ex: joao@exemplo.com" required />
+            </div>
+          </div>
+          <div class="form-linha">
+            <div class="form-grupo">
+              <label for="telefone">Telefone</label>
+              <input type="tel" id="telefone" placeholder="Ex: (83) 99999-0000" pattern="\(?\d{2}\)?\s?\d{4,5}-?\d{4}" />
+            </div>
+            <div class="form-grupo">
+              <label for="curso" class="obrigatorio">Curso</label>
+              <select id="curso" required>
+                <option value="">Selecione...</option>
+                <option>Engenharia de Software</option>
+                <option>Sistemas de Informação</option>
+                <option>Ciência da Computação</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-grupo">
+            <label for="matricula" class="obrigatorio">Matrícula (desabilitado)</label>
+            <input type="text" id="matricula" value="20261001" disabled />
+          </div>
+          <div class="form-grupo">
+            <label for="mensagem">Mensagem</label>
+            <textarea id="mensagem" placeholder="Escreva sua mensagem..."></textarea>
+          </div>
+          <button type="submit" class="btn-enviar">
+            <i class="fas fa-paper-plane"></i> Enviar
+          </button>
+        </form>
+      </div>
+
+      <!-- 7. UNIDADES RELATIVAS -->
+      <div class="secao">
+        <h2><i class="fas fa-ruler"></i> Unidades Relativas — Larguras em %</h2>
+        <p class="secao-descricao">
+          Cada barra abaixo usa uma largura percentual relativa ao container pai.
+        </p>
+        <div class="barra-demo">
+          <div class="barra barra-25">25% do container</div>
+          <div class="barra barra-50">50% do container</div>
+          <div class="barra barra-75">75% do container</div>
+          <div class="barra barra-100">100% do container</div>
+        </div>
+      </div>
+
+    </div><!-- /container -->
+
+    <!-- RODAPÉ -->
+    <footer class="page-footer">
+      <p>
+        <i class="fas fa-graduation-cap"></i>
+        Aula 05 — CSS: Formatação e Responsividade ·
+        Programação Web I · IFPB 2026.1
+      </p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+body {
+    font-size: 12px;
+}
+
+.dados-pessoais {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.dados-pessoais thead {
+    background-color: #4caf50;
+    color: white;
+}
+.dados-pessoais th, .dados-pessoais td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+.dados-pessoais thead th { 
+    font-weight: bold;
+    text-decoration: underline;
+    text-align: left;
+}
+.dados-pessoais tbody td {
+    font-size: 0.8em;
+}
+
+.dados-pessoais tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}

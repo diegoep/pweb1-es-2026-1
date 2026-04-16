@@ -1,0 +1,51 @@
+.cadastro-usuario {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.cadastro-usuario .form-group {
+    margin-bottom: 15px;
+}
+
+.cadastro-usuario .form-group label {
+    font-weight: bold;
+}
+
+.cadastro-usuario .form-group input {
+    width: 95%;
+    padding: 8px;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.cadastro-usuario .form-group input:focus {
+    border-color: #4CAF50;
+    outline: none;
+    background-color: aqua;
+}
+.cadastro-usuario .form-group input:valid {
+    border-color: #4CAF50;
+    background-color: lightgreen;
+}
+.cadastro-usuario .form-group input:invalid {
+    border-color: red;
+    background-color: lightcoral;
+}
+
+.cadastro-usuario button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+.cadastro-usuario button:hover {
+    background-color: #45a049;
+}
